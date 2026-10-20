@@ -1,0 +1,73 @@
+﻿Versant;Équipe type (fictive);Effectif fictif;Compétence;Niveau actuel /5;Niveau cible /5;Écart /5;Écart pondéré
+Territoriale;Accueil et relation usagers;14;Relation usagers;4,1;4,4;0,3;4,2
+Territoriale;Accueil et relation usagers;14;Numérique & données;2,2;3,6;1,4;19,6
+Territoriale;Accueil et relation usagers;14;RH & GPEEC;1,8;2,5;0,7;9,8
+Territoriale;Accueil et relation usagers;14;Pilotage & reporting;2,4;3,6;1,2;16,8
+Territoriale;Accueil et relation usagers;14;Cadre juridique;2,9;3,2;0,3;4,2
+Territoriale;Accueil et relation usagers;14;Coordination de projet;2,6;3,7;1,1;15,4
+Territoriale;Ressources humaines;9;Relation usagers;3,3;3,6;0,3;2,7
+Territoriale;Ressources humaines;9;Numérique & données;3,1;4,0;0,9;8,1
+Territoriale;Ressources humaines;9;RH & GPEEC;4,0;4,4;0,4;3,6
+Territoriale;Ressources humaines;9;Pilotage & reporting;3,0;4,2;1,2;10,8
+Territoriale;Ressources humaines;9;Cadre juridique;4,0;4,3;0,3;2,7
+Territoriale;Ressources humaines;9;Coordination de projet;3,2;4,1;0,9;8,1
+Territoriale;Transformation numérique;7;Relation usagers;2,9;3,4;0,5;3,5
+Territoriale;Transformation numérique;7;Numérique & données;4,1;4,6;0,5;3,5
+Territoriale;Transformation numérique;7;RH & GPEEC;2,8;3,4;0,6;4,2
+Territoriale;Transformation numérique;7;Pilotage & reporting;3,4;4,3;0,9;6,3
+Territoriale;Transformation numérique;7;Cadre juridique;3,0;3,8;0,8;5,6
+Territoriale;Transformation numérique;7;Coordination de projet;3,7;4,5;0,8;5,6
+Territoriale;Enfance et coordination;12;Relation usagers;4,0;4,4;0,4;4,8
+Territoriale;Enfance et coordination;12;Numérique & données;2,6;3,7;1,1;13,2
+Territoriale;Enfance et coordination;12;RH & GPEEC;2,2;2,8;0,6;7,2
+Territoriale;Enfance et coordination;12;Pilotage & reporting;2,5;3,8;1,3;15,6
+Territoriale;Enfance et coordination;12;Cadre juridique;3,2;3,7;0,5;6,0
+Territoriale;Enfance et coordination;12;Coordination de projet;3,4;4,1;0,7;8,4
+État;Greffe et appui juridique;11;Relation usagers;3,7;4,0;0,3;3,3
+État;Greffe et appui juridique;11;Numérique & données;3,0;4,0;1,0;11,0
+État;Greffe et appui juridique;11;RH & GPEEC;2,2;3,1;0,9;9,9
+État;Greffe et appui juridique;11;Pilotage & reporting;2,5;3,5;1,0;11,0
+État;Greffe et appui juridique;11;Cadre juridique;4,3;4,6;0,3;3,3
+État;Greffe et appui juridique;11;Coordination de projet;2,7;3,7;1,0;11,0
+État;Gestion RH ministérielle;10;Relation usagers;3,2;3,8;0,6;6,0
+État;Gestion RH ministérielle;10;Numérique & données;2,9;4,0;1,1;11,0
+État;Gestion RH ministérielle;10;RH & GPEEC;4,1;4,5;0,4;4,0
+État;Gestion RH ministérielle;10;Pilotage & reporting;3,0;4,1;1,1;11,0
+État;Gestion RH ministérielle;10;Cadre juridique;4,2;4,4;0,2;2,0
+État;Gestion RH ministérielle;10;Coordination de projet;3,5;4,1;0,6;6,0
+État;Services numériques;8;Relation usagers;3,0;3,5;0,5;4,0
+État;Services numériques;8;Numérique & données;4,2;4,6;0,4;3,2
+État;Services numériques;8;RH & GPEEC;2,9;3,6;0,7;5,6
+État;Services numériques;8;Pilotage & reporting;3,7;4,4;0,7;5,6
+État;Services numériques;8;Cadre juridique;3,2;3,8;0,6;4,8
+État;Services numériques;8;Coordination de projet;4,0;4,5;0,5;4,0
+État;Accueil et démarches;9;Relation usagers;4,0;4,5;0,5;4,5
+État;Accueil et démarches;9;Numérique & données;2,7;4,0;1,3;11,7
+État;Accueil et démarches;9;RH & GPEEC;2,0;3,0;1,0;9,0
+État;Accueil et démarches;9;Pilotage & reporting;2,9;4,0;1,1;9,9
+État;Accueil et démarches;9;Cadre juridique;3,3;3,6;0,3;2,7
+État;Accueil et démarches;9;Coordination de projet;2,6;3,7;1,1;9,9
+Hospitalière;Secrétariat médical;13;Relation usagers;4,0;4,5;0,5;6,5
+Hospitalière;Secrétariat médical;13;Numérique & données;2,7;3,9;1,2;15,6
+Hospitalière;Secrétariat médical;13;RH & GPEEC;2,1;3,0;0,9;11,7
+Hospitalière;Secrétariat médical;13;Pilotage & reporting;2,5;3,5;1,0;13,0
+Hospitalière;Secrétariat médical;13;Cadre juridique;3,3;3,7;0,4;5,2
+Hospitalière;Secrétariat médical;13;Coordination de projet;2,9;3,8;0,9;11,7
+Hospitalière;Gestion RH hospitalière;10;Relation usagers;3,3;3,7;0,4;4,0
+Hospitalière;Gestion RH hospitalière;10;Numérique & données;3,0;4,0;1,0;10,0
+Hospitalière;Gestion RH hospitalière;10;RH & GPEEC;4,0;4,4;0,4;4,0
+Hospitalière;Gestion RH hospitalière;10;Pilotage & reporting;3,0;4,1;1,1;11,0
+Hospitalière;Gestion RH hospitalière;10;Cadre juridique;4,0;4,3;0,3;3,0
+Hospitalière;Gestion RH hospitalière;10;Coordination de projet;3,1;4,0;0,9;9,0
+Hospitalière;Qualité et parcours;8;Relation usagers;4,0;4,4;0,4;3,2
+Hospitalière;Qualité et parcours;8;Numérique & données;3,2;4,1;0,9;7,2
+Hospitalière;Qualité et parcours;8;RH & GPEEC;2,5;3,3;0,8;6,4
+Hospitalière;Qualité et parcours;8;Pilotage & reporting;3,6;4,4;0,8;6,4
+Hospitalière;Qualité et parcours;8;Cadre juridique;3,7;4,1;0,4;3,2
+Hospitalière;Qualité et parcours;8;Coordination de projet;4,0;4,5;0,5;4,0
+Hospitalière;Appui numérique santé;6;Relation usagers;3,3;3,7;0,4;2,4
+Hospitalière;Appui numérique santé;6;Numérique & données;4,1;4,7;0,6;3,6
+Hospitalière;Appui numérique santé;6;RH & GPEEC;2,7;3,5;0,8;4,8
+Hospitalière;Appui numérique santé;6;Pilotage & reporting;3,9;4,5;0,6;3,6
+Hospitalière;Appui numérique santé;6;Cadre juridique;3,8;4,3;0,5;3,0
+Hospitalière;Appui numérique santé;6;Coordination de projet;3,7;4,5;0,8;4,8

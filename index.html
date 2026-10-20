@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Passerelles 2027 : démonstrateur de GPEEC, cartographie des compétences et mobilité professionnelle pour les trois versants de la fonction publique.">
+  <title>Passerelles 2027 — Compétences & Mobilités</title>
+  <style>
+    :root{--navy:#172b3d;--ink:#263b4a;--muted:#697a86;--line:#dae2e8;--surface:#fff;--bg:#f5f7f8;--accent:#56728a;--light:#eaf0f4;--gold:#b69a6d;--warn:#875e36;--success:#527264;--shadow:0 3px 16px rgba(31,51,67,.045)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);font-family:'Century Gothic','Avenir Next',Avenir,'Segoe UI',Arial,sans-serif;color:var(--ink);font-size:14px;line-height:1.55}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    a{color:#375d78}
+    button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #c6a46b;outline-offset:3px}
+    .container{width:min(1280px,calc(100% - 48px));margin:0 auto}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px}
+    .brand{display:flex;align-items:center;gap:13px;font-size:16px;color:var(--navy);font-weight:750;letter-spacing:.025em}
+    .brandmark{background:var(--navy);color:white;width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-family:Georgia,serif;font-size:20px;font-weight:400}
+    .top-meta{display:flex;gap:12px;align-items:center;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block;margin-right:6px}
+    .hero{padding:34px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:28px}
+    .eyebrow{text-transform:uppercase;letter-spacing:.17em;font-weight:700;color:#5d7181;font-size:11px;margin-bottom:9px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font:normal clamp(30px,3.4vw,46px)/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.028em;color:var(--navy);margin:0 0 11px}
+    .hero p{color:var(--muted);max-width:690px;margin:0;font-size:14px}
+    .hero-aside{border-left:2px solid var(--gold);padding-left:18px;color:#657682;max-width:250px;font-size:12px}
+    .hero-aside strong{display:block;color:var(--navy);font-size:13px;margin-bottom:3px}
+    .workspace{display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;background:white;padding:13px 16px;margin-bottom:19px;box-shadow:var(--shadow)}
+    .nav{display:flex;gap:3px;flex-wrap:wrap}
+    .nav button{border:0;background:transparent;padding:9px 12px;color:#596e7d;border-radius:7px;font-size:12px;white-space:nowrap}
+    .nav button.active{background:var(--navy);color:white}
+    .controls{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+    .control-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    select{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--navy);padding:8px 10px;max-width:250px;font-size:12px}
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+    .panel{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+    .kpi{padding:18px 20px;min-height:136px;position:relative;overflow:hidden}
+    .kpi:before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:var(--gold)}
+    .kpi-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#72818a;min-height:35px}
+    .kpi-value{font:normal 35px/1 Georgia,serif;color:var(--navy);margin:7px 0 5px;font-variant-numeric:tabular-nums}
+    .kpi-foot{color:#8997a0;font-size:11px}
+    .cols{display:grid;grid-template-columns:1.12fr .88fr;gap:16px;margin-bottom:18px}
+    .panel-head{padding:20px 22px 14px;border-bottom:1px solid #ecf0f2;display:flex;justify-content:space-between;align-items:center;gap:15px}
+    .panel-head h2{font-size:16px;color:var(--navy);margin:0;font-weight:700}
+    .panel-head p{font-size:12px;color:var(--muted);margin:5px 0 0}
+    .tag{display:inline-flex;align-items:center;background:#eef2f5;border:1px solid #dfe7eb;color:#516c7d;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:700;white-space:nowrap}
+    .panel-body{padding:21px 22px}
+    .skill-row{margin-bottom:21px}
+    .skill-row:last-child{margin-bottom:0}
+    .skill-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:12px}
+    .skill-top strong{font-weight:650;color:#2e4656}
+    .skill-top span{color:#7b8b96;font-variant-numeric:tabular-nums}
+    .bar-bg{height:9px;background:#edf1f4;border-radius:20px;overflow:hidden}
+    .bar-fill{height:100%;background:#6a879b;border-radius:20px;transition:width .25s}
+    .priority{display:flex;gap:12px;border-bottom:1px solid #edf0f2;padding:13px 0;align-items:start}
+    .priority:first-child{padding-top:0}
+    .priority:last-child{border:0;padding-bottom:0}
+    .priority .rank{display:grid;place-items:center;width:30px;height:30px;flex:none;border:1px solid #d7e0e5;color:#5a7181;border-radius:7px;font:18px Georgia,serif}
+    .priority h3{font-size:12px;margin:1px 0 4px;color:#273e4e}
+    .priority p{font-size:11px;color:#84929c;margin:0}
+    .note-strip{padding:13px 17px;background:#eef3f5;border:1px solid #e1e8ec;border-radius:9px;color:#516977;font-size:12px;display:flex;gap:10px;align-items:flex-start;margin:0 0 25px}
+    .note-strip strong{color:#334e60}
+    .section{display:none}
+    .section.active{display:block}
+    .section-intro{display:flex;justify-content:space-between;align-items:start;gap:20px;margin:4px 0 16px}
+    .section-intro h2{font:normal 24px Georgia,serif;color:var(--navy);margin-bottom:6px}
+    .section-intro p{color:var(--muted);font-size:12px;max-width:690px;margin:0}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{border:1px solid #cbd8df;background:white;color:#36566b;padding:10px 13px;border-radius:7px;font-weight:650;font-size:11px;display:inline-flex;gap:7px;align-items:center;justify-content:center}
+    .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+    .btn:disabled{opacity:.5;cursor:default}
+    .table-scroll{width:100%;overflow-x:auto}
+    table{border-collapse:collapse;width:100%;min-width:900px}
+    th,td{padding:12px 10px;text-align:center;border-bottom:1px solid #e7ecf0;font-size:11px}
+    thead th{background:#f5f8fa;color:#5b7180;font-size:10px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;vertical-align:bottom;line-height:1.4}
+    thead th:first-child{text-align:left;padding-left:17px;min-width:220px}
+    tbody td:first-child{text-align:left;padding-left:17px}
+    tbody tr:hover{background:#fafdfe}
+    .role-label{font-size:12px;font-weight:700;color:#314b5b}
+    .role-sub{font-size:10px;color:#82939d;margin-top:3px}
+    .metric-cell{border-radius:6px;padding:8px 4px;min-height:42px}
+    .metric-cell high{font-size:12px;font-weight:800}
+    .score{font-weight:750;font-size:12px}
+    .target{font-size:10px;color:#687c89}
+    .edit-scores{display:flex;align-items:center;justify-content:center;gap:3px}
+    .edit-scores input{width:49px;border:1px solid #cbd7df;border-radius:5px;padding:5px 2px;text-align:center;font-size:11px;color:#244257}
+    .legend{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:14px 18px;border-top:1px solid var(--line);font-size:11px;color:#758792}
+    .legend-item{display:flex;align-items:center;gap:6px}
+    .swatch{width:13px;height:13px;border-radius:4px;display:inline-block}
+    .path-layout{display:grid;grid-template-columns:.94fr 1.06fr;gap:16px;margin-bottom:18px}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:17px}
+    .field label{font-size:11px;color:#5e7180;font-weight:700}
+    .field select{max-width:100%;width:100%;padding:12px}
+    .path-arrow{text-align:center;color:#b7a080;margin:-8px 0 10px;font-size:24px}
+    .path-result{border:1px solid #dae2e7;background:#f7fafb;border-radius:9px;padding:19px}
+    .path-index{font:normal 42px Georgia,serif;color:var(--navy)}
+    .path-details{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+    .detail{padding:12px;background:white;border:1px solid #e4eaed;border-radius:6px;font-size:11px}
+    .detail strong{display:block;color:#30495a;font-size:12px}
+    .skills-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .skill-card{padding:12px;background:#f8fafb;border:1px solid #e3eaee;border-radius:7px}
+    .skill-card .level{font-weight:750;color:var(--navy);font-size:12px}
+    .skill-card .name{color:#556b79;font-size:11px;margin:3px 0 8px}
+    .skill-card .smallbar{height:5px;background:#e2eaee;border-radius:10px;overflow:hidden}
+    .skill-card .smallbar>span{display:block;height:100%;background:#708fa2}
+    .simulation-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:16px;margin-bottom:20px}
+    .range-row{padding:12px 0;border-bottom:1px solid #e7ecef}
+    .range-row:last-child{border:0}
+    .range-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px}
+    input[type=range]{width:100%;accent-color:#506f86;cursor:pointer}
+    .range-help{font-size:10px;color:#8b99a1;margin-top:4px}
+    .scenario-line{display:grid;grid-template-columns:150px 1fr 60px;align-items:center;gap:15px;margin-bottom:24px;font-size:12px}
+    .scenario-line:last-child{margin-bottom:0}
+    .scenario-line strong{font-size:11px;color:#536a79;font-weight:650}
+    .comparison-track{height:22px;background:#edf1f3;border-radius:4px;overflow:hidden;position:relative}
+    .comparison-track>span{display:block;height:100%;background:#9db0bd;transition:width .15s}
+    .scenario-line.selected .comparison-track>span{background:var(--navy)}
+    .scenario-line .num{font-weight:750;text-align:right;font-variant-numeric:tabular-nums}
+    .callout{margin-top:20px;border-left:3px solid var(--gold);background:#f8f7f3;padding:14px 16px;color:#64717b;font-size:12px}
+    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .step{border:1px solid var(--line);background:#fff;border-radius:8px;padding:18px}
+    .step .time{color:#97794d;font-size:10px;text-transform:uppercase;font-weight:800;letter-spacing:.1em;margin-bottom:8px}
+    .step h3{font-size:13px;color:var(--navy);margin-bottom:8px}
+    .step p{font-size:11px;color:#788a95;margin-bottom:0}
+    .memo{padding:31px 36px}
+    .memo-head{display:flex;justify-content:space-between;gap:20px;border-bottom:2px solid var(--navy);padding-bottom:19px;margin-bottom:23px}
+    .memo h2{font:normal 28px Georgia,serif;color:var(--navy);margin-bottom:6px}
+    .memo-sub{color:#788893;font-size:12px}
+    .memo-section{margin-bottom:19px}
+    .memo-section h3{font-size:12px;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+    .memo-section p,.memo-section li{font-size:12px;line-height:1.65;color:#516673}
+    .memo-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:19px}
+    .memo-metrics>div{background:#f3f6f8;padding:13px;border-radius:6px}
+    .memo-metrics strong{font:25px Georgia,serif;display:block;color:var(--navy)}
+    .memo-metrics span{font-size:10px;color:#6c7f8c}
+    footer{border-top:1px solid #e0e6e9;margin-top:33px;padding:20px 0 35px;color:#82919b;font-size:11px}
+    footer .container{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    .muted{color:var(--muted)}
+    .empty{font-size:13px;padding:25px;color:var(--muted)}
+    #toast{position:fixed;right:22px;bottom:20px;background:#203c4b;color:white;padding:12px 18px;border-radius:8px;font-size:12px;box-shadow:0 6px 20px #0002;opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s;z-index:50}
+    #toast.show{opacity:1;transform:translateY(0)}
+    @media(max-width:940px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.cols,.path-layout,.simulation-layout{grid-template-columns:1fr}.hero-aside{display:none}.nav button{padding:8px 10px}.container{width:calc(100% - 30px)}}
+    @media(max-width:600px){.topbar-inner{min-height:62px}.top-meta{display:none}.hero{padding:27px 0 22px}.kpi-grid{gap:9px}.kpi{padding:14px;min-height:122px}.kpi-value{font-size:30px}.workspace{padding:10px}.nav{overflow-x:auto;flex-wrap:nowrap;width:100%}.nav button{font-size:11px}.section-intro{display:block}.actions{margin-top:13px}.skills-list,.memo-metrics,.roadmap{grid-template-columns:1fr}.memo{padding:20px}.memo-head{display:block}.scenario-line{grid-template-columns:95px 1fr 44px;gap:8px}.brand{font-size:14px}}
+    @media print{body{background:white;font-size:12px}.topbar,.hero,.workspace,.kpi-grid,.section:not(#memoSection),.note-strip,footer,.actions,#toast{display:none!important}#memoSection{display:block!important}.container{width:100%;max-width:none}.memo{padding:8px 0;border:0;box-shadow:none}.memo h2{font-size:25px}.memo-section{page-break-inside:avoid}.memo-metrics>div{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+    /* Édition 2.0 : direction artistique éditoriale et sobriété de l'outil */
+    :root{--navy:#233C41;--ink:#273B40;--muted:#718184;--line:#E3E8E5;--surface:#fff;--bg:#F6F7F4;--accent:#57766F;--light:#EEF3EF;--gold:#AA9576;--warn:#8E7350;--success:#52776A;--shadow:0 6px 28px rgba(23,48,45,.025)}
+    body{font-family:'Century Gothic','Avenir Next','Segoe UI',Arial,sans-serif;color:var(--ink);font-size:14px;background:var(--bg)}
+    .container{width:min(1280px,calc(100% - 88px))}
+    .topbar{border-bottom:1px solid #E6ECE6;background:#fff}
+    .topbar-inner{min-height:82px}
+    .brand{text-decoration:none;gap:16px;letter-spacing:.045em}
+    .brandmark{width:42px;height:42px;background:transparent;border:1px solid #B9C9C1;border-radius:1px;display:flex;align-items:center;justify-content:center;gap:3px}
+    .brandmark i{height:17px;width:5px;border:1.4px solid #32574F;transform:skewY(-28deg);display:block}
+    .brandmark i:nth-child(2){height:22px}
+    .brandmark i:nth-child(3){height:13px}
+    .wordmark{font-size:16px;display:block;line-height:1.2;font-weight:750;color:#23403E}
+    .wordmark em{font-style:normal;font-weight:400;color:#7F9088}
+    .wordmark small{display:block;font-size:9px;color:#85918B;letter-spacing:.085em;font-weight:400;margin-top:5px}
+    .top-meta{font-size:10px;letter-spacing:.045em;text-transform:none;gap:22px}
+    .demo-indicator{border:1px solid #E2E9E2;background:#F7FAF6;padding:8px 12px;color:#49685D}
+    .dot{background:#779683}
+    .hero{display:grid;grid-template-columns:1.42fr .72fr;align-items:stretch;padding:56px 0 38px;gap:clamp(28px,5vw,72px)}
+    .hero-main{padding:15px 0 3px}
+    .eyebrow{color:#688179;font-size:10px;letter-spacing:.14em;margin-bottom:20px}
+    .tiny-line{display:inline-block;width:18px;height:1px;vertical-align:middle;margin-right:7px;background:#8D9C87}
+    .hero-separator{margin:0 5px;color:#A8B4AD}
+    h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(35px,4.1vw,57px);line-height:1.12;letter-spacing:-.035em;max-width:780px;color:#1F3639;margin:0 0 25px}
+    h1 span{color:#58776B}
+    .hero .hero-lead{color:#31484A;font-family:Georgia,serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;max-width:675px;margin:0 0 13px}
+    .hero .hero-desc{color:#667877;font-size:13px;max-width:700px;line-height:1.8;margin:0}
+    .hero-actions{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+    .btn{background:white;color:#315148;border:1px solid #CAD9D0;border-radius:3px;min-height:38px;padding:10px 14px;font-size:11px;font-weight:700;transition:background .18s,border-color .18s,transform .18s;text-decoration:none}
+    .btn:hover{background:#EDF3EF;border-color:#9AAFA2;transform:translateY(-1px)}
+    .btn.primary,.btn.primary:hover{background:#29493F;border-color:#29493F;color:#fff}
+    .hero-primary,.hero-download{padding:14px 18px;font-size:12px;min-height:46px}
+    .hero-primary span{margin-left:9px}
+    .hero-footnote{margin-top:14px;color:#8C9791;font-size:10px}
+    .footnote-mark{color:#4E7A68;font-size:16px;margin-right:5px;vertical-align:middle}
+    .hero-aside{max-width:none;display:flex;flex-direction:column;border:1px solid #D7E3DB;background:#EBF2EC;padding:25px 25px 22px;border-left:3px solid #587468;font-size:12px;min-height:340px}
+    .aside-top{display:flex;justify-content:space-between;gap:10px;font-weight:750;font-size:9px;letter-spacing:.13em;color:#4B6D60}
+    .aside-edition{color:#8A9E90;font-weight:400}
+    .hero-aside h2{font-family:Georgia,serif;font-weight:400;font-size:30px;line-height:1.12;letter-spacing:-.02em;color:#263F3A;margin:28px 0 19px}
+    .aside-steps{border-top:1px solid #D4E0D7}
+    .aside-step{display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid #D4E0D7;padding:15px 0;color:#53685C}
+    .step-no{font:15px Georgia,serif;color:#648373}
+    .aside-step div{flex:1}
+    .aside-step strong{font-size:12px;display:block;color:#29483F;margin:0 0 4px}
+    .aside-step small{font-size:10px;color:#788C80}
+    .step-arrow{font-size:15px;color:#8BA498}
+    .aside-bottom{font-size:10px;color:#6D8778;margin-top:auto;padding-top:18px;display:flex;gap:9px;align-items:center}
+    .data-square{display:inline-block;width:8px;height:8px;border:1px solid #678876;background:#EAF2E8;flex:none}
+    .method-strip{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #DDE5DF;border-bottom:1px solid #DDE5DF;padding:17px 22px;background:#FDFEFB;gap:20px;color:#687F74;font-size:11px;margin-bottom:43px}
+    .method-strip>span:not(.strip-end){display:flex;align-items:baseline;gap:7px}
+    .method-strip strong{font:normal 25px Georgia,serif;color:#2A4A3F}
+    .strip-end{font-size:10px;color:#829487}
+    .tool-intro{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px}
+    .tool-intro .eyebrow{margin:0 0 8px}
+    .tool-intro h2{font:normal 26px Georgia,serif;color:#2A4141;letter-spacing:-.02em;margin:0 0 7px}
+    .tool-intro p{font-size:12px;color:#7B8984;margin:0}
+    .text-link{background:none;border:0;padding:0 0 7px;border-bottom:1px solid #8C9E91;color:#3F6758;font-size:11px;font-weight:700;text-align:left}
+    .text-link span{margin-left:8px}
+    .workspace{border:1px solid #E1E8E2;background:#fff;border-radius:4px;padding:12px 16px;box-shadow:none;margin-bottom:18px}
+    .nav button{color:#63776C;padding:12px 14px;border-radius:2px;font-size:11px;font-weight:650}
+    .nav button.active{background:#EAF1EA;color:#2A5441;box-shadow:inset 0 -2px #678773}
+    .nav button:hover:not(.active){background:#F4F7F3}
+    select{border-color:#D7E1D8;border-radius:3px;color:#38564D;padding:9px 10px}
+    .control-label{font-size:10px;color:#89978F}
+    .status-line{display:flex;justify-content:space-between;gap:15px;font-size:11px;color:#74867A;margin:4px 0 17px;align-items:center}
+    .status-line>div{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+    .status-line strong{color:#527564}
+    #scopeSummary{font-size:10px;white-space:nowrap;color:#8B9B91}
+    .panel{border-radius:4px;border:1px solid #E3E9E3;box-shadow:var(--shadow)}
+    .kpi-grid{gap:13px;margin-bottom:18px}
+    .kpi{min-height:141px;padding:21px 22px;border-top:2px solid #9FB4A4}
+    .kpi:before{display:none}
+    .kpi-label{font-size:10px;color:#839087;min-height:28px;letter-spacing:.03em}
+    .kpi-value{font-size:38px;letter-spacing:-.02em;color:#2C4B43;margin:12px 0 7px}
+    .kpi-foot{font-size:10px;color:#83958A}
+    .insight-banner{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:22px;margin-bottom:21px;padding:24px 26px;border:1px solid #C9D9CC;background:#F0F5EE}
+    .insight-emblem{font:30px Georgia,serif;color:#708D79}
+    .insight-banner .eyebrow{margin:0 0 6px;font-size:9px}
+    .insight-banner h2{font:normal 19px Georgia,serif;color:#28443A;margin:0 0 4px}
+    .insight-banner p{font-size:11px;line-height:1.65;color:#647C6B;margin:0;max-width:780px}
+    .panel-head{padding:20px 22px 15px}
+    .panel-head h2{color:#2B4740;font-size:14px}
+    .panel-head p{color:#89978C}
+    .tag{background:#F5F8F3;border-color:#E3EBE1;color:#64806D;border-radius:2px}
+    .panel-body{padding:23px 23px}
+    .bar-bg{background:#EFF3EF;height:8px;border-radius:0}
+    .bar-fill{background:#719183;border-radius:0}
+    .skill-top strong{color:#3D5A50}
+    .priority .rank{border-radius:2px;color:#527967;border-color:#D2DFD4}
+    .priority h3{color:#314C45}
+    .priority p{color:#8B9A91}
+    .section-intro{margin-top:7px;margin-bottom:21px}
+    .section-intro h2{font-size:27px;color:#2C4540}
+    .section-intro p{line-height:1.7;color:#87978C}
+    thead th{background:#EEF4ED;color:#567365}
+    td{border-color:#E8EFE7}
+    tbody tr:hover{background:#F9FCF8}
+    .role-label{color:#36574B}
+    .role-sub{color:#96A299}
+    .metric-cell{border-radius:2px}
+    .path-result{border-radius:3px;background:#F4F7F2;border-color:#DDE8DB}
+    .path-index{color:#355B4B}
+    .skill-card{background:#FAFCF9;border-color:#E5EEE5;border-radius:3px}
+    .skill-card .smallbar>span{background:#739585}
+    input[type=range]{accent-color:#5F836D}
+    .comparison-track{border-radius:2px;background:#ECF1E9}
+    .comparison-track>span{background:#9FB8A6}
+    .scenario-line.selected .comparison-track>span{background:#547B69}
+    .callout{background:#F5F5EF;border-left-color:#B1A17F}
+    .step{border-radius:3px}
+    .step .time{color:#8C9479}
+    .memo h2,.memo-section h3{color:#294A3D}
+    .note-strip{background:#F1F4EF;border-radius:3px;color:#7B8D7E;border-color:#DDE7DB;margin-top:26px}
+    .note-strip strong{color:#496B55}
+    footer{border-top-color:#E0E8DF}
+    footer strong{letter-spacing:.07em;color:#506E60}
+    #toast{background:#254438;border-radius:3px}
+    @media(max-width:1100px){.hero{grid-template-columns:1.2fr .8fr;gap:24px}.hero-aside{min-height:0}.nav button{padding:10px}.top-versants{display:none}.container{width:calc(100% - 48px)}.insight-banner{grid-template-columns:34px 1fr}.insight-banner .btn{grid-column:2;justify-self:start}}
+    @media(max-width:780px){.hero{grid-template-columns:1fr;padding-top:35px}.hero-aside{max-width:100%;padding:22px;display:block}.hero-aside h2{margin:15px 0}.aside-bottom{margin-top:5px}.method-strip{flex-wrap:wrap;justify-content:flex-start;gap:12px 24px;margin-bottom:30px}.strip-end{width:100%}.tool-intro{align-items:start;flex-direction:column}.status-line{align-items:start;flex-direction:column}.insight-banner{grid-template-columns:1fr;gap:6px;padding:22px}.insight-emblem{display:none}.insight-banner .btn{grid-column:1}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.container{width:calc(100% - 30px)}.topbar-inner{min-height:72px}.wordmark{font-size:14px}.top-meta{display:none}.hero h1{font-size:37px}.hero .hero-lead{font-size:17px}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions>*{width:100%;text-align:center}.method-strip{padding:13px}.method-strip strong{font-size:20px}.workspace{padding:8px}.nav{width:100%;overflow-x:auto;flex-wrap:nowrap}.nav button{flex:0 0 auto;font-size:11px}.kpi-grid{gap:9px}.kpi{padding:15px;min-height:128px}.kpi-value{font-size:33px}.kpi-foot{font-size:9px}.aside-step{padding:12px 0}.section-intro h2{font-size:24px}.insight-banner h2{font-size:18px}}
+    .panel-head p{font-size:12px}
+    .skill-top{font-size:12px}
+    .priority p{font-size:12px;line-height:1.55}
+    .insight-banner p{font-size:12px}
+    .kpi-foot{font-size:11px}
+    .note-strip{font-size:11px}
+    @media print{.hero,.method-strip,.tool-intro,.status-line,.insight-banner{display:none!important}}
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="container topbar-inner">
+  <a class="brand" href="#accueil" aria-label="Passerelles 2027, retour à l'accueil"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span><span class="wordmark">PASSERELLES <em>2027</em><small>Compétences · Mobilités · Anticipation</small></span></a>
+  <div class="top-meta"><span class="demo-indicator"><span class="dot"></span> Démonstrateur indépendant</span><span class="top-versants">État / Territorial / Hospitalier</span></div>
+</div></header>
+<main class="container" id="accueil">
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-main"><div class="eyebrow"><span class="tiny-line"></span> Laboratoire d'outils RH publics <span class="hero-separator">/</span> Édition 2027</div>
+      <h1 id="heroTitle">Les compétences existent.<br><span>Encore faut-il les rendre visibles.</span></h1>
+      <p class="hero-lead">Et si l'on partait des savoir-faire déjà présents pour préparer les mobilités, les transformations et la continuité du service public&nbsp;?</p>
+      <p class="hero-desc">Un outil de démonstration pour explorer les écarts de compétences, repérer des passerelles entre métiers et préparer une note d'aide à la décision. Trois versants, une lecture collective.</p>
+      <div class="hero-actions"><button class="btn primary hero-primary" id="exploreDemo">Explorer le diagnostic <span aria-hidden="true">↗</span></button><a class="btn hero-download" href="PASSERELLES_2027_Kit.zip" download>↓&nbsp; Télécharger le kit complet</a></div>
+      <div class="hero-footnote"><span class="footnote-mark">○</span> Accès libre · sans inscription · aucune donnée transmise à un serveur</div>
+    </div>
+    <aside class="hero-aside" aria-label="Parcours de découverte">
+      <div class="aside-top"><span>LE PARCOURS</span><span class="aside-edition">N° 01 / 2027</span></div>
+      <h2>De l'observation<br>à l'action.</h2>
+      <div class="aside-steps"><div class="aside-step"><span class="step-no">01</span><div><strong>Observer les écarts</strong><small>Un diagnostic collectif et lisible</small></div><span class="step-arrow">↗</span></div><div class="aside-step"><span class="step-no">02</span><div><strong>Explorer les passerelles</strong><small>Des compétences transférables</small></div><span class="step-arrow">↗</span></div><div class="aside-step"><span class="step-no">03</span><div><strong>Préparer une décision</strong><small>Une note argumentée à exporter</small></div><span class="step-arrow">↗</span></div></div>
+      <div class="aside-bottom"><span class="data-square"></span><span>Exemple de méthode — jeu de données entièrement fictif.</span></div>
+    </aside>
+  </section>
+  <div class="method-strip" role="note"><span><strong>3</strong> versants</span><span><strong>12</strong> équipes fictives</span><span><strong>6</strong> domaines de compétences</span><span class="strip-end">Un diagnostic à tester, pas un classement d'agents.</span></div>
+  <section class="tool-intro" aria-label="Espace de démonstration"><div><div class="eyebrow">ESPACE DE TRAVAIL</div><h2>Explorer le potentiel d'une organisation</h2><p>Choisissez un versant et un horizon. Les cinq espaces ci-dessous se mettent à jour ensemble.</p></div><button class="text-link" id="tryCase">Tester un cas : gestion administrative → direction <span aria-hidden="true">↗</span></button></section>
+  <div class="workspace"><nav class="nav" aria-label="Sections du démonstrateur"><button data-tab="dashboard" class="active">Vue d’ensemble</button><button data-tab="matrix">Matrice des compétences</button><button data-tab="paths">Passerelles métiers</button><button data-tab="simulation">Scénarios 2027–2030</button><button data-tab="memo">Note stratégique</button></nav><div class="controls"><span class="control-label">Versant</span><select id="scope" aria-label="Filtrer par versant"><option value="ALL">Tous les versants</option><option value="FPT">Territorial</option><option value="FPE">État</option><option value="FPH">Hospitalier</option></select><span class="control-label">Horizon</span><select id="year" aria-label="Choisir un horizon"><option value="2027">2027</option><option value="2028">2028</option><option value="2030">2030</option></select></div></div>
+  <div class="status-line"><div><span class="data-square"></span><strong>Simulation pédagogique</strong> <span>Les chiffres ci-dessous sont inventés et servent uniquement à illustrer une méthode.</span></div><span id="scopeSummary">Périmètre : trois versants</span></div>
+  <div class="kpi-grid" id="kpiGrid" aria-live="polite"></div>
+  <section class="section active" id="dashboardSection">
+    <div class="insight-banner" id="insightBanner" aria-live="polite"></div>
+    <div class="cols"><article class="panel"><div class="panel-head"><div><h2>Écarts de compétences à anticiper</h2><p>Écart agrégé entre niveaux disponibles et niveaux visés (échelle 0–5).</p></div><span class="tag">Vision collective</span></div><div class="panel-body" id="gapsChart"></div></article>
+    <article class="panel"><div class="panel-head"><div><h2>Priorités d'action</h2><p>Domaines où accompagner la montée en compétences.</p></div><span class="tag">Analyse indicative</span></div><div class="panel-body" id="priorityList"></div></article></div>
+    <div class="cols"><article class="panel"><div class="panel-head"><div><h2>Transmission des savoirs</h2><p>Hypothèses fictives de départs cumulés, par équipe-type.</p></div><span class="tag">Horizon <span class="yearText">2027</span></span></div><div class="panel-body" id="departures"></div></article><article class="panel"><div class="panel-head"><div><h2>Lecture de direction générale</h2><p>Comment passer du constat à l'action ?</p></div></div><div class="panel-body"><div class="priority"><div class="rank">01</div><div><h3>Objectiver les compétences</h3><p>Définir les niveaux attendus par métier et les écarts à traiter.</p></div></div><div class="priority"><div class="rank">02</div><div><h3>Ouvrir les passerelles</h3><p>Identifier les compétences transférables entre familles de fonctions.</p></div></div><div class="priority"><div class="rank">03</div><div><h3>Sécuriser la continuité</h3><p>Organiser la transmission des savoirs avant les départs.</p></div></div><div class="priority"><div class="rank">04</div><div><h3>Évaluer collectivement</h3><p>Suivre les résultats, les formations engagées et l'avis des parties prenantes.</p></div></div></div></article></div>
+  </section>
+  <section class="section" id="matrixSection"><div class="section-intro"><div><h2>Une matrice pour passer des impressions aux besoins</h2><p>Les niveaux de compétences sont fictifs. Activez la modification pour tester vos propres hypothèses d'organisation, puis exportez la matrice.</p></div><div class="actions"><button class="btn" id="editMatrix">Modifier les niveaux</button><a href="EXEMPLE_MATRICE_2027.csv" class="btn primary" download>↓&nbsp; Modèle CSV (.csv)</a><button class="btn" id="downloadCsv">Exporter CSV</button><button class="btn" id="downloadJson">Sauver JSON</button><button class="btn" id="importTrigger">Importer JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden><button class="btn" id="resetData">Réinitialiser</button></div></div><article class="panel"><div class="table-scroll" id="matrixContainer"></div><div class="legend"><div class="legend-item"><span class="swatch" style="background:#eee9e0"></span> Écart supérieur à 1 point</div><div class="legend-item"><span class="swatch" style="background:#eaf0f3"></span> Écart modéré</div><div class="legend-item"><span class="swatch" style="background:#e0eee8"></span> Objectif atteint</div><span>Lecture : niveau actuel / niveau cible. Échelle 0 à 5.</span></div></article></section>
+  <section class="section" id="pathsSection"><div class="section-intro"><div><h2>Une passerelle métier, pas une promesse de mobilité</h2><p>Une passerelle n'est pas une promesse de mobilité : elle met en évidence les acquis transférables et les apprentissages à prévoir. Les profils sont des archétypes fictifs.</p></div></div><div class="path-layout"><article class="panel"><div class="panel-head"><div><h2>Explorer une transition</h2><p>Choisissez deux familles de fonctions.</p></div></div><div class="panel-body"><div class="field"><label for="fromRole">Fonction d'origine</label><select id="fromRole"></select></div><div class="path-arrow" aria-hidden="true">↓</div><div class="field"><label for="toRole">Fonction cible</label><select id="toRole"></select></div><div class="path-result" id="pathResult"></div></div></article><article class="panel"><div class="panel-head"><div><h2>Analyse des socles de compétences</h2><p>Exemple illustratif, à vérifier par entretien et formation.</p></div></div><div class="panel-body"><div id="pathSkills" class="skills-list"></div><div class="callout">Lecture : un niveau métier « source » proche du niveau « cible » indique un socle transférable. Les écarts signalent des thèmes de formation ou d'immersion, sans qualifier automatiquement une personne.</div></div></article></div></section>
+  <section class="section" id="simulationSection"><div class="section-intro"><div><h2>Tester une stratégie de développement</h2><p>Faites varier l'intensité hypothétique de trois leviers. Les résultats illustrent une méthode de simulation ; ils ne sont ni des prévisions réelles ni un calcul budgétaire.</p></div></div><div class="simulation-layout"><article class="panel"><div class="panel-head"><div><h2>Leviers de transformation</h2><p>Réglez un scénario d'accompagnement.</p></div></div><div class="panel-body"><div class="range-row"><div class="range-head"><strong>Formation ciblée</strong><span id="trainingValue">55 %</span></div><input type="range" min="0" max="100" step="5" id="trainingRange" value="55" aria-label="Intensité de formation"><div class="range-help">Montée en compétences sur les écarts prioritaires.</div></div><div class="range-row"><div class="range-head"><strong>Mobilité / immersions</strong><span id="mobilityValue">45 %</span></div><input type="range" min="0" max="100" step="5" id="mobilityRange" value="45" aria-label="Intensité de mobilité"><div class="range-help">Décloisonnement des parcours et compétences transférables.</div></div><div class="range-row"><div class="range-head"><strong>Transmission organisée</strong><span id="handoverValue">65 %</span></div><input type="range" min="0" max="100" step="5" id="handoverRange" value="65" aria-label="Intensité de transmission"><div class="range-help">Tutorat, documentation et binômes avant départs.</div></div></div></article><article class="panel"><div class="panel-head"><div><h2>Couverture estimée des besoins</h2><p>Comparaison purement pédagogique, périmètre sélectionné.</p></div><span class="tag">Scénario <span class="yearText">2027</span></span></div><div class="panel-body"><div id="scenarioBars"></div><div class="callout" id="scenarioExplain"></div></div></article></div><div class="section-intro"><div><h2>Feuille de route opérationnelle</h2><p>Trois étapes à adapter à la gouvernance et au dialogue social de chaque employeur.</p></div></div><div class="roadmap"><div class="step"><div class="time">Jours 1 à 30</div><h3>Diagnostic partagé</h3><p>Cadrer les métiers sensibles, consulter les directions, fixer les compétences de référence et les indicateurs.</p></div><div class="step"><div class="time">Jours 31 à 60</div><h3>Expérimentation ciblée</h3><p>Tester une matrice, des immersions volontaires et un plan de transmission sur un périmètre restreint.</p></div><div class="step"><div class="time">Jours 61 à 90</div><h3>Bilan & décision</h3><p>Mesurer les retours, ajuster les règles, puis décider d'un éventuel déploiement avec les acteurs concernés.</p></div></div></section>
+  <section class="section" id="memoSection"><div class="section-intro"><div><h2>Une synthèse directement présentable</h2><p>La note est recalculée à partir de vos filtres et modifications. Imprimez-la ou enregistrez-la au format PDF depuis le navigateur.</p></div><div class="actions"><button class="btn primary" id="printMemo">Imprimer / PDF</button><button class="btn" id="exportMemo">Exporter la note HTML</button></div></div><article class="panel memo" id="memoBody"></article></section>
+  <div class="note-strip"><span aria-hidden="true">ⓘ</span><div><strong>Démonstration exclusivement.</strong> Les unités, effectifs, niveaux, départs potentiels, scénarios et parcours sont inventés. Aucune connexion SIRH, aucun suivi individuel, aucune décision automatisée. Les éditions sont conservées uniquement dans ce navigateur si le stockage local est autorisé. Ne saisissez pas de données nominatives ou internes dans une version publiée.</div></div>
+</main>
+<footer><div class="container"><div><strong>PASSERELLES / 2027</strong> · Projet indépendant de démonstration · Version 2.0</div><div>Conception pédagogique · Sans affiliation institutionnelle · Aucun traitement nominatif</div></div></footer><div id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+'use strict';
+const SKILLS=[
+  {id:'usagers',name:'Relation usagers'},
+  {id:'numerique',name:'Numérique & données'},
+  {id:'rh',name:'RH & GPEEC'},
+  {id:'pilotage',name:'Pilotage & reporting'},
+  {id:'juridique',name:'Cadre juridique'},
+  {id:'coordination',name:'Coordination de projet'}
+];
+const create=(id,branch,name,count,departures,current,target)=>({id,branch,name,count,departures,current,target});
+const DEFAULT_UNITS=[
+  create('t1','FPT','Accueil et relation usagers',14,[1,2,4],[4.1,2.2,1.8,2.4,2.9,2.6],[4.4,3.6,2.5,3.6,3.2,3.7]),
+  create('t2','FPT','Ressources humaines',9,[0,1,2],[3.3,3.1,4.0,3.0,4.0,3.2],[3.6,4.0,4.4,4.2,4.3,4.1]),
+  create('t3','FPT','Transformation numérique',7,[1,1,2],[2.9,4.1,2.8,3.4,3.0,3.7],[3.4,4.6,3.4,4.3,3.8,4.5]),
+  create('t4','FPT','Enfance et coordination',12,[1,2,3],[4.0,2.6,2.2,2.5,3.2,3.4],[4.4,3.7,2.8,3.8,3.7,4.1]),
+  create('e1','FPE','Greffe et appui juridique',11,[1,2,3],[3.7,3.0,2.2,2.5,4.3,2.7],[4.0,4.0,3.1,3.5,4.6,3.7]),
+  create('e2','FPE','Gestion RH ministérielle',10,[1,1,3],[3.2,2.9,4.1,3.0,4.2,3.5],[3.8,4.0,4.5,4.1,4.4,4.1]),
+  create('e3','FPE','Services numériques',8,[0,1,2],[3.0,4.2,2.9,3.7,3.2,4.0],[3.5,4.6,3.6,4.4,3.8,4.5]),
+  create('e4','FPE','Accueil et démarches',9,[1,2,3],[4.0,2.7,2.0,2.9,3.3,2.6],[4.5,4.0,3.0,4.0,3.6,3.7]),
+  create('h1','FPH','Secrétariat médical',13,[1,2,4],[4.0,2.7,2.1,2.5,3.3,2.9],[4.5,3.9,3.0,3.5,3.7,3.8]),
+  create('h2','FPH','Gestion RH hospitalière',10,[0,1,3],[3.3,3.0,4.0,3.0,4.0,3.1],[3.7,4.0,4.4,4.1,4.3,4.0]),
+  create('h3','FPH','Qualité et parcours',8,[1,1,2],[4.0,3.2,2.5,3.6,3.7,4.0],[4.4,4.1,3.3,4.4,4.1,4.5]),
+  create('h4','FPH','Appui numérique santé',6,[0,1,2],[3.3,4.1,2.7,3.9,3.8,3.7],[3.7,4.7,3.5,4.5,4.3,4.5])
+];
+const ROLES=[
+  {id:'accueil',name:'Agent d’accueil / relation usagers',branch:'FPT / FPE',levels:[4.4,2.5,1.9,2.4,2.8,2.8]},
+  {id:'gestion',name:'Gestionnaire administratif',branch:'3 versants',levels:[3.5,3.0,2.8,3.1,3.6,3.1]},
+  {id:'assistant',name:'Assistante / assistant de direction',branch:'3 versants',levels:[3.9,3.6,3.2,4.2,3.6,4.3]},
+  {id:'coordusagers',name:'Coordinateur relation usagers',branch:'FPT / FPE',levels:[4.6,4.0,3.3,4.2,3.4,4.5]},
+  {id:'rh',name:'Gestionnaire RH',branch:'3 versants',levels:[3.3,3.1,4.3,3.2,4.1,3.5]},
+  {id:'gpeec',name:'Chargé(e) de GPEEC',branch:'3 versants',levels:[3.5,4.1,4.7,4.4,4.1,4.4]},
+  {id:'greffe',name:'Gestionnaire juridique / greffe',branch:'FPE / FPT',levels:[3.6,3.6,2.6,3.6,4.7,3.6]},
+  {id:'med',name:'Secrétariat médical',branch:'FPH',levels:[4.4,3.1,2.2,2.9,3.4,3.1]},
+  {id:'parcours',name:'Coordinateur de parcours',branch:'FPH',levels:[4.6,4.1,3.1,4.2,4.0,4.5]},
+  {id:'projet',name:'Chargé(e) de projet transversal',branch:'3 versants',levels:[3.8,4.2,3.7,4.6,3.5,4.8]}
+];
+const branchName={FPT:'Territoriale',FPE:'État',FPH:'Hospitalière'};
+const KEY='passerelles_2027_demo_v1';
+const $=id=>document.getElementById(id);
+let data=loadData(),activeTab='dashboard',editMode=false,scope='ALL',year=2027;
+let intensities={training:55,mobility:45,handover:65};
+function validData(x){return Array.isArray(x)&&x.length===DEFAULT_UNITS.length&&x.every(u=> typeof u.id==='string'&&['FPT','FPE','FPH'].includes(u.branch)&&Number.isInteger(u.count)&&u.count>=0&&u.count<=10000&&Array.isArray(u.current)&&Array.isArray(u.target)&&u.current.length===6&&u.target.length===6&&[...u.current,...u.target].every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=5)&&Array.isArray(u.departures)&&u.departures.length===3&&u.departures.every((d,i)=>Number.isInteger(d)&&d>=0&&d<=u.count)&&typeof u.name==='string'&&u.name.length<=120)&&new Set(x.map(u=>u.id)).size===x.length&&DEFAULT_UNITS.every(u=>x.some(a=>a.id===u.id&&a.branch===u.branch));}
+function loadData(){try{const found=JSON.parse(localStorage.getItem(KEY));if(validData(found))return found;}catch(e){}return JSON.parse(JSON.stringify(DEFAULT_UNITS));}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){toast('Stockage local non disponible : modifications en mémoire uniquement.');}}
+function selected(){return scope==='ALL'?data:data.filter(x=>x.branch===scope);}
+function targetAt(unit,i){const additional=(i===1||i===3||i===5)?(year-2027)*.08:0;return Math.min(5,unit.target[i]+additional);}
+function departAt(u){return u.departures[year===2027?0:year===2028?1:2];}
+function coverage(units,boost=0){let num=0,den=0;units.forEach(u=>{SKILLS.forEach((s,i)=>{const t=targetAt(u,i);num+=Math.min(t,u.current[i]+boost)*u.count;den+=t*u.count;});});return den?100*num/den:0;}
+function gaps(units){return SKILLS.map((s,i)=>{const raw=units.reduce((total,u)=>total+Math.max(0,targetAt(u,i)-u.current[i])*u.count,0);const total=units.reduce((sum,u)=>sum+u.count,0);return {...s,index:i,raw,mean:total?raw/total:0};}).sort((a,b)=>b.raw-a.raw);}
+function percent(x){return `${Math.round(x)} %`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderKpis(){const units=selected(),n=units.reduce((a,u)=>a+u.count,0),cov=coverage(units),g=gaps(units),d=units.reduce((a,u)=>a+departAt(u),0);$('kpiGrid').innerHTML=[['Postes dans la simulation',n.toLocaleString('fr-FR'),'Effectifs illustratifs, non réels'],['Couverture des compétences',percent(cov),'Rapport aux objectifs du scénario'],['Domaines à examiner',g.filter(a=>a.mean>=.5).length+'/6','Écart moyen d’au moins 0,5 point'],['Transmissions à préparer',d,'Hypothèses de départs fictives']].map(k=>`<article class="panel kpi"><div class="kpi-label">${k[0]}</div><div class="kpi-value">${k[1]}</div><div class="kpi-foot">${k[2]}</div></article>`).join('');}
+function renderDashboard(){const units=selected(),g=gaps(units),max=Math.max(1,...g.map(a=>a.mean));$('gapsChart').innerHTML=g.map(a=>`<div class="skill-row"><div class="skill-top"><strong>${escapeHtml(a.name)}</strong><span>Écart moyen : ${a.mean.toFixed(2).replace('.',',')} / 5</span></div><div class="bar-bg"><div class="bar-fill" style="width:${Math.round(100*a.mean/max)}%"></div></div></div>`).join('');$('priorityList').innerHTML=g.slice(0,4).map((a,i)=>`<div class="priority"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><h3>${escapeHtml(a.name)}</h3><p>Priorité de lecture : ${Math.round(a.raw)} points-postes d'écart théorique. À approfondir avec les équipes métiers.</p></div></div>`).join('');const ranked=[...units].sort((a,b)=>departAt(b)/Math.max(1,b.count)-departAt(a)/Math.max(1,a.count));$('departures').innerHTML=ranked.slice(0,5).map(u=>`<div class="skill-row"><div class="skill-top"><strong>${escapeHtml(u.name)} <span class="muted">(${u.branch})</span></strong><span>${departAt(u)} / ${u.count} postes</span></div><div class="bar-bg"><div class="bar-fill" style="width:${Math.round(100*departAt(u)/Math.max(1,u.count))}%"></div></div></div>`).join('');}
+function renderInsight(){const units=selected(),g=gaps(units),first=g[0],d=units.reduce((sum,u)=>sum+departAt(u),0),total=units.reduce((sum,u)=>sum+u.count,0),b=scope==='ALL'?'ensemble des trois versants':branchName[scope].toLowerCase();$('scopeSummary').textContent=`Périmètre : ${scope==='ALL'?'trois versants':b} · horizon ${year}`;$('insightBanner').innerHTML=`<div class="insight-emblem" aria-hidden="true">↗</div><div class="insight-copy"><div class="eyebrow">À EXAMINER DANS CETTE SIMULATION</div><h2>${escapeHtml(first.name)} : premier écart collectif</h2><p>Avec les hypothèses ${year} sur ${escapeHtml(b)}, ce domaine présente un écart moyen de <strong>${first.mean.toFixed(2).replace('.',',')}/5</strong>. ${d} départs potentiels fictifs sont également recensés sur ${total} postes simulés. Ces signaux appellent un diagnostic qualitatif, pas une décision automatique.</p></div><button class="btn" id="insightGo">Examiner la matrice <span aria-hidden="true">→</span></button>`;$('insightGo').addEventListener('click',()=>activateTab('matrix'));}
+function activateTab(tab){activeTab=tab;document.querySelectorAll('[data-tab]').forEach(x=>{x.classList.toggle('active',x.dataset.tab===tab);x.setAttribute('aria-current',x.dataset.tab===tab?'page':'false');});document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===tab+'Section'));}
+function colorGap(g){if(g>1)return 'background:#f5efe6;color:#775d3d';if(g>0.01)return 'background:#eaf0f3;color:#345f75';return 'background:#e5f0e9;color:#426957';}
+function renderMatrix(){const units=selected();let out='<table><thead><tr><th>Unité / effectif</th>'+SKILLS.map(s=>`<th>${escapeHtml(s.name)}</th>`).join('')+'</tr></thead><tbody>';units.forEach(u=>{out+=`<tr><td><div class="role-label">${escapeHtml(u.name)}</div><div class="role-sub">${branchName[u.branch]} · ${u.count} postes fictifs</div></td>`;SKILLS.forEach((s,i)=>{const current=u.current[i],target=targetAt(u,i),gap=target-current;out+=`<td><div class="metric-cell" style="${colorGap(gap)}">${editMode?`<div class="edit-scores"><input data-id="${u.id}" data-i="${i}" data-kind="current" type="number" min="0" max="5" step="0.1" value="${current}" aria-label="Niveau actuel : ${escapeHtml(u.name)}, ${escapeHtml(s.name)}"><span>/</span><input data-id="${u.id}" data-i="${i}" data-kind="target" type="number" min="0" max="5" step="0.1" value="${u.target[i]}" aria-label="Objectif 2027 : ${escapeHtml(u.name)}, ${escapeHtml(s.name)}"></div>`:`<div class="score">${current.toFixed(1).replace('.',',')} <span class="target">/ ${target.toFixed(1).replace('.',',')}</span></div>`}</div></td>`;});out+='</tr>';});out+='</tbody></table>';$('matrixContainer').innerHTML=out;if(editMode){$('matrixContainer').querySelectorAll('input[data-id]').forEach(input=>input.addEventListener('change',()=>{const u=data.find(x=>x.id===input.dataset.id);if(!u)return;const n=Number(input.value);if(!Number.isFinite(n)||n<0||n>5){toast('Veuillez saisir un niveau entre 0 et 5.');renderMatrix();return;}u[input.dataset.kind][Number(input.dataset.i)]=Math.round(n*10)/10;save();renderAll();}));}}
+function initRoles(){ROLES.forEach(r=>{for(const element of [$('fromRole'),$('toRole')]){let option=document.createElement('option');option.value=r.id;option.textContent=r.name;element.appendChild(option);}});$('fromRole').value='accueil';$('toRole').value='coordusagers';}
+function renderPaths(){const a=ROLES.find(r=>r.id===$('fromRole').value),b=ROLES.find(r=>r.id===$('toRole').value);if(!a||!b)return;const ratios=a.levels.map((n,i)=>Math.min(n/b.levels[i],1));const index=Math.round(100*ratios.reduce((sum,x)=>sum+x,0)/ratios.length);const acquired=ratios.filter(x=>x>=.9).length;const needs=ratios.map((v,i)=>({v,i})).sort((x,y)=>x.v-y.v).slice(0,3);$('pathResult').innerHTML=`<div class="eyebrow">Indice indicatif de transférabilité</div><div class="path-index">${index} <span style="font-size:18px">/ 100</span></div><div class="muted" style="font-size:11px;margin-top:5px">Comparaison de référentiels métiers fictifs, pas une évaluation individuelle.</div><div class="path-details"><div class="detail"><strong>${acquired} / 6</strong>domaines proches du niveau visé</div><div class="detail"><strong>${6-acquired} / 6</strong>domaines à consolider</div></div><div style="font-size:11px;color:#617582;margin-top:13px"><strong>Pistes :</strong> ${needs.map(item=>escapeHtml(SKILLS[item.i].name.toLowerCase())).join(' · ')}.</div>`;$('pathSkills').innerHTML=SKILLS.map((s,i)=>{const delta=Math.max(0,b.levels[i]-a.levels[i]);return `<div class="skill-card"><div class="level">${a.levels[i].toFixed(1).replace('.',',')} → ${b.levels[i].toFixed(1).replace('.',',')} <span class="muted" style="font-size:10px">${delta<.3?'Socle proche':`Écart +${delta.toFixed(1).replace('.',',')}`}</span></div><div class="name">${escapeHtml(s.name)}</div><div class="smallbar"><span style="width:${Math.round(100*ratios[i])}%"></span></div></div>`}).join('');}
+function renderSimulation(){for(const key of ['training','mobility','handover']){$(key+'Value').textContent=intensities[key]+' %';}const units=selected(),base=coverage(units),horizon=year===2027?1:year===2028?1.25:1.5;const trainingBoost=.62*(intensities.training/100)*horizon;const mobilBoost=.48*(intensities.mobility/100)*horizon;const transmissionBoost=.19*(intensities.handover/100)*horizon;const train=coverage(units,trainingBoost),combined=coverage(units,trainingBoost+mobilBoost+transmissionBoost);$('scenarioBars').innerHTML=[{name:'Sans action nouvelle',val:base},{name:'Formation ciblée',val:train},{name:'Leviers combinés',val:combined}].map((x,i)=>`<div class="scenario-line ${i===2?'selected':''}"><strong>${x.name}</strong><div class="comparison-track"><span style="width:${x.val.toFixed(1)}%"></span></div><span class="num">${percent(x.val)}</span></div>`).join('');$('scenarioExplain').innerHTML=`Avec les hypothèses sélectionnées, la couverture passerait de <strong>${percent(base)}</strong> à <strong>${percent(combined)}</strong> (écart indicatif de <strong>+${(combined-base).toFixed(1).replace('.',',')} points</strong>). Modèle simplifié : bonus de compétence commun par levier, plafonné au niveau cible ; effet d'horizon multiplicatif. Aucune validation empirique : ne pas utiliser ces chiffres pour arbitrer des ressources réelles.`;}
+function getMemoContent(){const units=selected(),n=units.reduce((a,u)=>a+u.count,0),coverageNum=coverage(units),d=units.reduce((a,u)=>a+departAt(u),0),g=gaps(units),label=scope==='ALL'?'les trois versants':`la fonction publique ${branchName[scope].toLowerCase()}`;return `<div class="memo-head"><div><div class="eyebrow">Document de travail — données fictives</div><h2>Note stratégique · Passerelles ${year}</h2><div class="memo-sub">Cartographie des compétences, continuité de service et mobilités professionnelles</div></div><span class="tag">Périmètre : ${label}</span></div><div class="memo-section"><h3>Objet</h3><p>Proposer un cadre expérimental d'analyse collective des compétences, afin de préparer les évolutions métiers, les actions de formation, les passerelles et la transmission des savoirs. Ce document est un exemple de note destinée à une direction générale ou RH.</p></div><div class="memo-metrics"><div><strong>${n}</strong><span>Postes fictifs couverts</span></div><div><strong>${percent(coverageNum)}</strong><span>Couverture théorique des compétences cibles</span></div><div><strong>${d}</strong><span>Départs potentiels fictifs d'ici ${year}</span></div></div><div class="memo-section"><h3>Constats de la simulation</h3><p>Les trois principaux écarts de compétences agrégés concernent <strong>${g.slice(0,3).map(a=>escapeHtml(a.name.toLowerCase())).join(', ')}</strong>. Ces écarts théoriques justifieraient, s'ils étaient observés dans un diagnostic réel, une analyse qualitative complémentaire avec les équipes métiers.</p></div><div class="memo-section"><h3>Orientations opérationnelles</h3><ol><li>Définir des référentiels métiers co-construits avec les services, avec une nomenclature cohérente.</li><li>Prioriser deux ou trois métiers sensibles et organiser des entretiens non automatisés sur les besoins collectifs de développement.</li><li>Expérimenter des immersions volontaires, des formations ciblées et des dispositifs de tutorat.</li><li>Documenter les résultats : couverture des besoins, retour des agents, conditions de déploiement et moyens mobilisés.</li></ol></div><div class="memo-section"><h3>Gouvernance et précautions</h3><p>Associer la direction générale, la DRH, les directions métiers, la DSI, le DPO et les acteurs du dialogue social selon les procédures applicables. Prévoir validation humaine et auditabilité des hypothèses. Avant tout usage sur des données réelles, réaliser l'analyse juridique, organisationnelle et de sécurité adaptée.</p></div><div class="memo-section"><h3>Décision proposée</h3><p>Autoriser un cadrage méthodologique et une expérimentation sur données agrégées, sans développement SIRH ni traitement nominatif à ce stade, puis présenter un bilan de faisabilité à 90 jours.</p></div><div style="border-top:1px solid #e2e8ec;padding-top:14px;font-size:10px;color:#85939c">PASSERELLES 2027 · Démonstrateur indépendant · Simulation pédagogique sans données réelles · ${new Date().toLocaleDateString('fr-FR')}</div>`;}
+function renderMemo(){$('memoBody').innerHTML=getMemoContent();}
+function renderAll(){renderInsight();document.querySelectorAll('.yearText').forEach(x=>x.textContent=year);renderKpis();renderDashboard();renderMatrix();renderPaths();renderSimulation();renderMemo();}
+function download(filename,text,type){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function csvEscape(s){return '"'+String(s).replaceAll('"','""')+'"';}
+function downloadCsv(){const rows=[['Versant','Unité','Effectifs fictifs','Horizon','Compétence','Niveau actuel','Niveau cible','Écart','Départs potentiels fictifs']];selected().forEach(u=>SKILLS.forEach((s,i)=>rows.push([u.branch,u.name,u.count,year,s.name,u.current[i].toFixed(1).replace('.',','),targetAt(u,i).toFixed(1).replace('.',','),Math.max(0,targetAt(u,i)-u.current[i]).toFixed(1).replace('.',','),departAt(u)])));download(`passerelles-matrice-${scope.toLowerCase()}-${year}.csv`,'\ufeff'+rows.map(row=>row.map(csvEscape).join(';')).join('\r\n'),'text/csv;charset=utf-8');toast('Matrice CSV exportée.');}
+function toast(msg){const e=$('toast');e.textContent=msg;e.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>e.classList.remove('show'),3600);}
+function memoDocument(){return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Note stratégique Passerelles '+year+'</title><style>body{font-family:Arial,sans-serif;line-height:1.55;color:#253d4b;max-width:840px;margin:30px auto;padding:30px;font-size:14px}.memo-head{display:flex;justify-content:space-between;border-bottom:3px solid #233c50;margin-bottom:26px;padding-bottom:20px}h2{font:30px Georgia;color:#233c50;margin:5px 0}h3{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#233c50}.memo-section{margin-bottom:20px}.memo-metrics{display:flex;gap:12px}.memo-metrics>div{background:#f2f5f7;flex:1;padding:15px}.memo-metrics strong{font:28px Georgia;display:block}.memo-metrics span,.memo-sub{font-size:11px;color:#738390}.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase}.tag{font-size:11px}@media print{body{margin:0;padding:10px}}</style></head><body>'+getMemoContent()+'</body></html>';}
+function bind(){document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.tab)));$('exploreDemo').addEventListener('click',()=>{activateTab('dashboard');document.querySelector('.workspace').scrollIntoView({behavior:'smooth',block:'start'});});$('tryCase').addEventListener('click',()=>{scope='FPT';$('scope').value='FPT';$('fromRole').value='gestion';$('toRole').value='assistant';renderAll();activateTab('paths');document.querySelector('.workspace').scrollIntoView({behavior:'smooth',block:'start'});});$('scope').addEventListener('change',e=>{scope=e.target.value;renderAll()});$('year').addEventListener('change',e=>{year=Number(e.target.value);renderAll()});$('editMatrix').addEventListener('click',()=>{editMode=!editMode;$('editMatrix').textContent=editMode?'Terminer les modifications':'Modifier les niveaux';renderMatrix();});$('downloadCsv').addEventListener('click',downloadCsv);$('downloadJson').addEventListener('click',()=>{download('passerelles-2027-donnees-fictives.json',JSON.stringify(data,null,2),'application/json;charset=utf-8');toast('Jeu de données exporté.');});$('importTrigger').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;if(f.size>1024*1024){toast('Fichier trop volumineux (maximum 1 Mo).');e.target.value='';return;}try{const newData=JSON.parse(await f.text());if(!validData(newData))throw Error('Schéma incorrect');data=newData;save();renderAll();toast('Données de démonstration importées.');}catch(err){toast('Import refusé : format JSON incompatible.');}e.target.value='';});$('resetData').addEventListener('click',()=>{if(!confirm('Réinitialiser toutes les modifications de démonstration ?'))return;data=JSON.parse(JSON.stringify(DEFAULT_UNITS));save();renderAll();toast('Données fictives réinitialisées.');});$('fromRole').addEventListener('change',renderPaths);$('toRole').addEventListener('change',renderPaths);for(const key of ['training','mobility','handover'])$(key+'Range').addEventListener('input',e=>{intensities[key]=Number(e.target.value);renderSimulation();});$('printMemo').addEventListener('click',()=>window.print());$('exportMemo').addEventListener('click',()=>{download('note-strategique-passerelles-'+year+'.html',memoDocument(),'text/html;charset=utf-8');toast('Note stratégique exportée.');});}
+initRoles();bind();renderAll();
+})();
+</script>
+</body>
+</html>

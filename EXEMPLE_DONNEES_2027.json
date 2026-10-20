@@ -1,0 +1,326 @@
+[
+  {
+    "id": "t1",
+    "branch": "FPT",
+    "name": "Accueil et relation usagers",
+    "count": 14,
+    "departures": [
+      1,
+      2,
+      4
+    ],
+    "current": [
+      4.1,
+      2.2,
+      1.8,
+      2.4,
+      2.9,
+      2.6
+    ],
+    "target": [
+      4.4,
+      3.6,
+      2.5,
+      3.6,
+      3.2,
+      3.7
+    ]
+  },
+  {
+    "id": "t2",
+    "branch": "FPT",
+    "name": "Ressources humaines",
+    "count": 9,
+    "departures": [
+      0,
+      1,
+      2
+    ],
+    "current": [
+      3.3,
+      3.1,
+      4.0,
+      3.0,
+      4.0,
+      3.2
+    ],
+    "target": [
+      3.6,
+      4.0,
+      4.4,
+      4.2,
+      4.3,
+      4.1
+    ]
+  },
+  {
+    "id": "t3",
+    "branch": "FPT",
+    "name": "Transformation numérique",
+    "count": 7,
+    "departures": [
+      1,
+      1,
+      2
+    ],
+    "current": [
+      2.9,
+      4.1,
+      2.8,
+      3.4,
+      3.0,
+      3.7
+    ],
+    "target": [
+      3.4,
+      4.6,
+      3.4,
+      4.3,
+      3.8,
+      4.5
+    ]
+  },
+  {
+    "id": "t4",
+    "branch": "FPT",
+    "name": "Enfance et coordination",
+    "count": 12,
+    "departures": [
+      1,
+      2,
+      3
+    ],
+    "current": [
+      4.0,
+      2.6,
+      2.2,
+      2.5,
+      3.2,
+      3.4
+    ],
+    "target": [
+      4.4,
+      3.7,
+      2.8,
+      3.8,
+      3.7,
+      4.1
+    ]
+  },
+  {
+    "id": "e1",
+    "branch": "FPE",
+    "name": "Greffe et appui juridique",
+    "count": 11,
+    "departures": [
+      1,
+      2,
+      3
+    ],
+    "current": [
+      3.7,
+      3.0,
+      2.2,
+      2.5,
+      4.3,
+      2.7
+    ],
+    "target": [
+      4.0,
+      4.0,
+      3.1,
+      3.5,
+      4.6,
+      3.7
+    ]
+  },
+  {
+    "id": "e2",
+    "branch": "FPE",
+    "name": "Gestion RH ministérielle",
+    "count": 10,
+    "departures": [
+      1,
+      1,
+      3
+    ],
+    "current": [
+      3.2,
+      2.9,
+      4.1,
+      3.0,
+      4.2,
+      3.5
+    ],
+    "target": [
+      3.8,
+      4.0,
+      4.5,
+      4.1,
+      4.4,
+      4.1
+    ]
+  },
+  {
+    "id": "e3",
+    "branch": "FPE",
+    "name": "Services numériques",
+    "count": 8,
+    "departures": [
+      0,
+      1,
+      2
+    ],
+    "current": [
+      3.0,
+      4.2,
+      2.9,
+      3.7,
+      3.2,
+      4.0
+    ],
+    "target": [
+      3.5,
+      4.6,
+      3.6,
+      4.4,
+      3.8,
+      4.5
+    ]
+  },
+  {
+    "id": "e4",
+    "branch": "FPE",
+    "name": "Accueil et démarches",
+    "count": 9,
+    "departures": [
+      1,
+      2,
+      3
+    ],
+    "current": [
+      4.0,
+      2.7,
+      2.0,
+      2.9,
+      3.3,
+      2.6
+    ],
+    "target": [
+      4.5,
+      4.0,
+      3.0,
+      4.0,
+      3.6,
+      3.7
+    ]
+  },
+  {
+    "id": "h1",
+    "branch": "FPH",
+    "name": "Secrétariat médical",
+    "count": 13,
+    "departures": [
+      1,
+      2,
+      4
+    ],
+    "current": [
+      4.0,
+      2.7,
+      2.1,
+      2.5,
+      3.3,
+      2.9
+    ],
+    "target": [
+      4.5,
+      3.9,
+      3.0,
+      3.5,
+      3.7,
+      3.8
+    ]
+  },
+  {
+    "id": "h2",
+    "branch": "FPH",
+    "name": "Gestion RH hospitalière",
+    "count": 10,
+    "departures": [
+      0,
+      1,
+      3
+    ],
+    "current": [
+      3.3,
+      3.0,
+      4.0,
+      3.0,
+      4.0,
+      3.1
+    ],
+    "target": [
+      3.7,
+      4.0,
+      4.4,
+      4.1,
+      4.3,
+      4.0
+    ]
+  },
+  {
+    "id": "h3",
+    "branch": "FPH",
+    "name": "Qualité et parcours",
+    "count": 8,
+    "departures": [
+      1,
+      1,
+      2
+    ],
+    "current": [
+      4.0,
+      3.2,
+      2.5,
+      3.6,
+      3.7,
+      4.0
+    ],
+    "target": [
+      4.4,
+      4.1,
+      3.3,
+      4.4,
+      4.1,
+      4.5
+    ]
+  },
+  {
+    "id": "h4",
+    "branch": "FPH",
+    "name": "Appui numérique santé",
+    "count": 6,
+    "departures": [
+      0,
+      1,
+      2
+    ],
+    "current": [
+      3.3,
+      4.1,
+      2.7,
+      3.9,
+      3.8,
+      3.7
+    ],
+    "target": [
+      3.7,
+      4.7,
+      3.5,
+      4.5,
+      4.3,
+      4.5
+    ]
+  }
+]
